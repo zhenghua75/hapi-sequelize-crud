@@ -6,7 +6,10 @@ import crud, { associations } from './crud';
 import url from 'url';
 import qs from 'qs';
 
+
 const register = (server, options = {}, next) => {
+  server.dependency('hapi-sequelize');
+
   options.prefix = options.prefix || '/';
   options.name = options.name || 'db';
 
@@ -100,7 +103,7 @@ const register = (server, options = {}, next) => {
     crud(server, model, options);
   });
 
-  next();
+  return next();
 };
 
 register.attributes = {
